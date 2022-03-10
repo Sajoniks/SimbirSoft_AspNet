@@ -1,0 +1,45 @@
+﻿@model SimbirHomework.Models.HumanDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add human</title>
+</head>
+<body>
+<div>
+    <h2>New human</h2>
+    @using (Html.BeginForm("PostHuman", "Human", FormMethod.Post))
+    {
+        @Html.Hidden("Id")
+        <table>
+            <thead>
+
+            </thead>
+            <tr>
+                <td>@Html.DisplayNameFor(m => m.Name)</td>
+                <td>@Html.TextBoxFor(m => m.Name)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(m => m.Surname)</td>
+                <td>@Html.TextBoxFor(m => m.Surname)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(m => m.Patronymic)</td>
+                <td>@Html.TextBoxFor(m => m.Patronymic)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(m => m.Birthday)</td>
+                <td>@Html.EditorFor(m => m.Birthday)</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Send">
+    }
+</div>
+</body>
+</html>

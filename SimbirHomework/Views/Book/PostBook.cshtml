@@ -1,0 +1,51 @@
+﻿@using SimbirHomework
+@model SimbirHomework.Models.BookDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Add book</title>
+</head>
+<body>
+<div>
+    <h2>New book</h2>
+    @using (Html.BeginForm("PostBook", "Book", FormMethod.Post))
+    {
+        @Html.Hidden("Id")
+        <table>
+            <thead>
+
+            </thead>
+            <tr>
+                <td>@Html.DisplayNameFor(m => m.Title)</td>
+                <td>@Html.TextBoxFor(m => m.Title)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(m => m.Genre)</td>
+                <td>@Html.TextBoxFor(m => m.Genre)</td>
+            </tr>
+            <tr>
+                <td>
+                    @{
+                        var humans = MockDb.Humans.Select(h => new SelectListItem()
+                        {
+                            Text = $"{h.Name} {h.Surname}",
+                            Value = h.Id.ToString()
+                        });
+                        
+                        @Html.DropDownList("AuthorId", humans);
+                    }
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Send">
+    }
+</div>
+</body>
+</html>

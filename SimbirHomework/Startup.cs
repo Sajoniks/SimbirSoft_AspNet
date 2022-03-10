@@ -17,24 +17,35 @@ namespace SimbirHomework
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseStat();
-            
+            // Статичные файлы
+            app.UseStaticFiles();
+            // HTTP --> HTTPS
+            app.UseHttpsRedirection();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             
             app.UseRouting();
-
+            
+            // Uncomment для 2.2.4
+            // app.UseAdmin();
+           
+            // 2.2.3 
+            app.UseStat();
+            
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
+                endpoints.MapControllers();
             });
+            
         }
     }
 }

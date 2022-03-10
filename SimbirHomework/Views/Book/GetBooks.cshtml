@@ -1,0 +1,75 @@
+﻿@using SimbirHomework
+@using SimbirHomework.Models
+@model IEnumerable<SimbirHomework.Models.BookDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>All books</title>
+</head>
+<body>
+<div>
+    @using (@Html.BeginForm("PostBook", "Book", FormMethod.Get))
+    {
+        <input type="submit" value="Add new book">
+    }
+</div>
+<div>
+    @using (@Html.BeginForm("GetBooks", "Book", FormMethod.Get))
+    {
+        <label>Filter by author</label>
+        try
+        {
+            var ids = Model.Select(m => m.Id);
+            var authors = MockDb.Humans
+                .Where(h => ids.Contains(h.Id))
+                .Select(h => new SelectListItem() {Text = $"{h.Name} {h.Surname}", Value = h.Id.ToString()});
+            
+            @Html.DropDownList("author", authors)
+            
+            <input type="submit" value="Filter">
+        }
+        catch (InvalidOperationException e)
+        {
+            <p><strong>There are no authors.</strong></p>   
+        }
+    }
+</div>
+
+<div>
+    <h3>All books</h3>
+    <table>
+        <thead>
+        <td>@Html.DisplayNameFor(m => m.Title)</td>
+        <td>@Html.DisplayNameFor(m => m.Genre)</td>
+        <td>Author</td>
+        </thead>
+        @foreach (var m in Model)
+        {
+            <tr>
+                <td>@m.Title</td>
+                <td>@m.Genre</td>
+                <td>
+                    @{
+                        var human = m.Author;
+                        var name = $"{human.Name} {human.Surname}";
+                    }
+                    @name
+                </td>
+                <td>
+                    @using (Html.BeginForm("DeleteBook", "Book", new {id = m.Id}, FormMethod.Post))
+                    {
+                        <input type="submit" value="Delete">
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

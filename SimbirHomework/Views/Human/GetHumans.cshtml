@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SimbirHomework.Models.HumanDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>All humans</title>
+</head>
+<body>
+<div>
+    @using (Html.BeginForm("PostHuman", "Human", FormMethod.Get))
+    {
+        <input type="submit" value="Add new human">
+    }
+</div>
+<div>
+        <h3>Search</h3>
+        @using (Html.BeginForm("GetHumans", "Human", FormMethod.Get))
+        {
+            <label>Query</label>
+            @Html.TextBox("query")
+            
+            <label>Authors only</label>
+            @Html.CheckBox("authors")
+            
+            <input type="submit" value="Search">
+        }
+</div>
+<div>
+    <h3>All humans</h3>
+    <table>
+        <thead>
+        <td>@Html.DisplayNameFor(m => m.Name)</td>
+        <td>@Html.DisplayNameFor(m => m.Surname)</td>
+        <td>@Html.DisplayNameFor(m => m.Patronymic)</td>
+        <td>@Html.DisplayNameFor(m => m.Birthday)</td>
+        </thead>
+        @foreach (var h in Model)
+        {
+            <tr>
+                <td>@h.Name</td>
+                <td>@h.Surname</td>
+                <td>@(h.Patronymic ?? "-")</td>
+                <td>@h.Birthday.ToShortDateString()</td>
+                <td>
+                    @using (Html.BeginForm("DeleteHuman", "Human", new {id = h.Id}, FormMethod.Post))
+                    {
+                        <input type="submit" value="Delete">
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+</body>
+</html>

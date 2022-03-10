@@ -18,7 +18,7 @@ namespace SimbirHomework.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
-            _logger.LogInformation("Starting request processing...");
+            _logger.LogInformation("Processing {0}", context.GetEndpoint()?.DisplayName);
             
             var now = DateTime.UtcNow;
             await _next.Invoke(context);

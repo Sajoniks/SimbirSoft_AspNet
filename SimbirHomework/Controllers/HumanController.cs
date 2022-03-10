@@ -15,7 +15,7 @@ namespace SimbirHomework.Controllers
     public class HumanController : Controller
     {
         /// <summary>
-        /// Список всех людей
+        /// 1.3.1 Список всех людей
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -58,7 +58,7 @@ namespace SimbirHomework.Controllers
         }
 
         /// <summary>
-        /// Добавить нового человека
+        /// 1.3.2 Добавить нового человека
         /// </summary>
         /// <param name="human">Человек</param>
         /// <returns></returns>
@@ -82,7 +82,7 @@ namespace SimbirHomework.Controllers
         }
 
         /// <summary>
-        /// Удалить человека
+        /// 1.3.3. Удалить человека
         /// </summary>
         /// <param name="id">Id человека</param>
         /// <returns></returns>
